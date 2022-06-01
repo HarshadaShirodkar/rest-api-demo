@@ -9,11 +9,11 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
-    @Query("SELECT * FROM User u WHERE " +
+    @Query("SELECT * FROM Users u WHERE " +
             "u.name LIKE CONCAT('%',:query, '%')")
     List<UserEntity> getEmailByName(String name);
 
-    @Query("SELECT * FROM User u")
+    @Query("SELECT * FROM Users u")
     List<UserEntity> getAllEmails();
 
 }

@@ -1,5 +1,6 @@
 package com.au.ps.email.impl;
 
+import com.au.ps.email.controller.UserController;
 import com.au.ps.email.dao.UserDao;
 import com.au.ps.email.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,11 +11,13 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Component
 public class UserDaoImpl implements UserDao {
-
+    static Logger logger = Logger.getLogger(UserController.class.getName());
     @Override
     public List<User> findAll() {
         List<User> userList;
@@ -36,7 +39,7 @@ public class UserDaoImpl implements UserDao {
             ObjectMapper objectMapper = new ObjectMapper();
             List<User> userList = Arrays.asList(objectMapper.readValue(new File("data/test.json"), User[].class));
             System.out.println("userList is:" + userList);
-
+            logger.log(Level.INFO, "userList is {}", userList);
             email = userList.stream()
                     .filter(it -> name.equalsIgnoreCase(it.getFirstName()))
                     .collect(Collectors.toList());
